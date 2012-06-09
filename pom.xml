@@ -11,5 +11,6 @@
     <modules>
         <module>IntellijWebSite</module>
         <module>IntellijCreator</module>
+        <module>IntellijIbatis</module>
     </modules>
 </project>
