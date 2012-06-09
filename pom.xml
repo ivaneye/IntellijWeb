@@ -9,7 +9,7 @@
     <url>https://github.com/ivanpig/IntellijWeb</url>
 
     <modules>
-        <module>IntellijWebWebSite</module>
+        <module>IntellijWebSite</module>
         <module>IntellijCreator</module>
     </modules>
 </project>
