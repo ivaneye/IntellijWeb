@@ -1,0 +1,38 @@
+package ${package};
+
+#if($flag)
+import com.dao.${name}DAO;
+import com.model.${name};
+import org.springframework.beans.factory.annotation.Autowired;
+#end
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+/**
+ * Author: ${author}
+ * Time: ${date}
+ */
+@Service
+@Transactional
+public class ${name}Service {
+#if($flag)
+    @Autowired
+    private ${name}DAO ${name.toLowerCase()}DAO;
+
+    public ${name} find(Long recId){
+        return ${name.toLowerCase()}DAO.selectByPrimaryKey(recId);
+    }
+
+    public void insert(${name} ${name.toLowerCase()}){
+        ${name.toLowerCase()}DAO.insert(${name.toLowerCase()});
+    }
+
+    public void update(${name} ${name.toLowerCase()}){
+        ${name.toLowerCase()}DAO.updateByPrimaryKey(${name.toLowerCase()});
+    }
+
+    public void delete(Long recId){
+        ${name.toLowerCase()}DAO.deleteByPrimaryKey(recId);
+    }
+#end
+}

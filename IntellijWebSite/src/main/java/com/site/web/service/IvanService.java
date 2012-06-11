@@ -20,9 +20,19 @@ public class IvanService {
     @Autowired
     private UserDAO userDAO;
 
+    public User find(Long recId){
+        return userDAO.selectByPrimaryKey(recId);
+    }
+
     public void insert(User user){
         userDAO.insert(user);
-        if(true)
-            throw new UnsupportedOperationException();
+    }
+
+    public void update(User user){
+        userDAO.updateByPrimaryKey(user);
+    }
+
+    public void delete(Long recId){
+        userDAO.deleteByPrimaryKey(recId);
     }
 }
