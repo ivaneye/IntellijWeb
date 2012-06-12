@@ -118,6 +118,13 @@
                 <groupId>IntellijCreator</groupId>
                 <artifactId>IntellijCreator</artifactId>
                 <version>1.0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>IntellijIbatis</groupId>
+                        <artifactId>IntellijIbatis</artifactId>
+                        <version>1.0</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
