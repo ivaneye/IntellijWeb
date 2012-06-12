@@ -40,7 +40,7 @@ public abstract class BaseCreator extends AbstractMojo {
         String rootPath = getRootPath();
         File path = new File(rootPath + this.getDir());
         while (name == null) {
-            System.out.println("Please enter " + this.getFileName() + " name:");
+            System.out.println("Please enter " + this.getFileTypeName() + " name:");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             try {
                 name = br.readLine();
@@ -57,7 +57,7 @@ public abstract class BaseCreator extends AbstractMojo {
             }
             name = dirs[dirs.length - 1];
         }
-        String fullPath = path + File.separator + name + this.getFileName() + "." + this.getFileType();
+        String fullPath = path + File.separator + name + this.getFileTypeName() + "." + this.getFileType();
         exportFile(fullPath, false);
     }
 
@@ -95,7 +95,7 @@ public abstract class BaseCreator extends AbstractMojo {
 
     private String getPackage(String path) {
         String rootPath = getRootPath();
-        String packagePath = path.substring(rootPath.length() + 1, path.length() - (name + this.getFileName() + "." + this.getFileType()).length() - 1);
+        String packagePath = path.substring(rootPath.length() + 1, path.length() - (name + this.getFileTypeName() + "." + this.getFileType()).length() - 1);
         packagePath = packagePath.replaceAll("\\\\", "\\.");
         return packagePath;
     }
@@ -127,11 +127,30 @@ public abstract class BaseCreator extends AbstractMojo {
         return ve.getTemplate(templateName, "utf-8");
     }
 
+    /**
+     * 子类返回其从pom.xml文件中取得的路径
+     * 例如：service.dir,controller.dir
+     * @return
+     */
     public abstract String getDir();
 
-    public abstract String getFileName();
+    /**
+     * 返回文件后缀名
+     * 例如:Controller,Service,Domain
+     * @return
+     */
+    public abstract String getFileTypeName();
 
+    /**
+     * 返回文件类型
+     * 例如：java,html,js
+     * @return
+     */
     public abstract String getFileType();
 
+    /**
+     * 返回模板的名称
+     * @return
+     */
     public abstract String getTemplateName();
 }
