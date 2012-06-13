@@ -69,7 +69,7 @@ public class IbatorCreator extends AbstractMojo {
             writer.flush();
             writer.close();
             runScript(outputFile);
-//            new File(outputFile).delete();
+            new File(outputFile).delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
