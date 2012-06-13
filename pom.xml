@@ -12,5 +12,6 @@
         <module>IntellijWebSite</module>
         <module>IntellijCreator</module>
         <module>IntellijIbatis</module>
+        <module>ibator-core</module>
     </modules>
 </project>

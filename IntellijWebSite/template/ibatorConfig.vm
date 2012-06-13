@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE ibatorConfiguration PUBLIC "-//Apache Software Foundation//DTD Apache iBATIS Ibator Configuration 1.0//EN" "http://ibatis.apache.org/dtd/ibator-config_1_0.dtd" >
+<ibatorConfiguration >
+    <classPathEntry location="D:\lib\maven\mysql\mysql-connector-java\5.0.5\mysql-connector-java-5.0.5.jar"/>
+    <ibatorContext id="content1">
+
+        <ibatorPlugin type="org.apache.ibatis.ibator.plugins.RenameExampleClassPlugin">
+            <property name="searchString" value="Example$" />
+            <property name="replaceString" value="Criteria" />
+        </ibatorPlugin>
+
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/IntellijWeb" userId="root" password="root">
+            <property name="" value=""/>
+        </jdbcConnection>
+        <javaModelGenerator targetPackage="com.model" targetProject="D:/ProgramCodes/IntellijWeb/IntellijIbatis/src/main/java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <sqlMapGenerator targetPackage="conf.ibatis" targetProject="D:/ProgramCodes/IntellijWeb/IntellijIbatis/src/main/resources">
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+        <daoGenerator targetPackage="com.dao" targetProject="D:/ProgramCodes/IntellijWeb/IntellijIbatis/src/main/java" type="spring">
+            <property name="enableSubPackages" value="false"/>
+        </daoGenerator>
+
+
+        <table tableName="${name}" domainObjectName="${name}" enableCountByExample="true" enableDeleteByExample="true" enableSelectByExample="true" enableUpdateByExample="false">
+        </table>
+    </ibatorContext>
+</ibatorConfiguration>
+
