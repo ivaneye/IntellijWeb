@@ -13,14 +13,14 @@
         <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/IntellijWeb" userId="root" password="root">
             <property name="" value=""/>
         </jdbcConnection>
-        <javaModelGenerator targetPackage="com.model" targetProject="D:/ProgramCodes/IntellijWeb/IntellijIbatis/src/main/java">
+        <javaModelGenerator targetPackage="${modelPackage}" targetProject="${javaDir}">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
-        <sqlMapGenerator targetPackage="conf.ibatis" targetProject="D:/ProgramCodes/IntellijWeb/IntellijIbatis/src/main/resources">
+        <sqlMapGenerator targetPackage="${resourcesPackage}" targetProject="${resourcesDir}">
             <property name="enableSubPackages" value="false"/>
         </sqlMapGenerator>
-        <daoGenerator targetPackage="com.dao" targetProject="D:/ProgramCodes/IntellijWeb/IntellijIbatis/src/main/java" type="spring">
+        <daoGenerator targetPackage="${daoPackage}" targetProject="${javaDir}" type="spring">
             <property name="enableSubPackages" value="false"/>
         </daoGenerator>
 
@@ -29,4 +29,3 @@
         </table>
     </ibatorContext>
 </ibatorConfiguration>
-

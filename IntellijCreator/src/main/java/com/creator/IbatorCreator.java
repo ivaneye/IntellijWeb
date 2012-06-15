@@ -16,7 +16,6 @@ import java.util.Properties;
 /**
  * Run Ibator
  *
- * @execute phase="compile"
  * @goal ibator
  * @requiresProject true
  */
@@ -33,6 +32,31 @@ public class IbatorCreator extends AbstractMojo {
      * @parameter default-value="${project}"
      */
     protected MavenProject project;
+
+    /**
+     * @parameter default-value="${ibatis.java.dir}"
+     */
+    private String javaDir;
+
+    /**
+     * @parameter default-value="${ibatis.model.package}"
+     */
+    private String modelPackage;
+
+    /**
+     * @parameter default-value="${ibatis.dao.package}"
+     */
+    private String daoPackage;
+
+    /**
+     * @parameter default-value="${ibatis.resources.dir}"
+     */
+    private String resourcesDir;
+
+    /**
+     * @parameter default-value="${ibatis.resources.package}"
+     */
+    private String resourcesPackage;
 
     @Override
     public void execute() throws MojoExecutionException {
@@ -57,8 +81,18 @@ public class IbatorCreator extends AbstractMojo {
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
             context.put("date", format.format(new Date()));
+            name = name.toLowerCase();
+            String n = name.charAt(0) + "";
+            name = name.replaceFirst(n,n.toUpperCase());
             context.put("name", name);
             context.put("author", System.getProperty("user.name").trim());
+            String basePath = project.getBasedir().getAbsolutePath();
+            basePath = basePath.replaceAll("\\\\","/");
+            context.put("javaDir", basePath + "/.." + javaDir);
+            context.put("modelPackage", modelPackage);
+            context.put("daoPackage", daoPackage);
+            context.put("resourcesDir", basePath + "/.." + resourcesDir);
+            context.put("resourcesPackage", resourcesPackage);
 
             String outputFile = project.getBuild().getOutputDirectory()
                     + File.separator
@@ -69,7 +103,7 @@ public class IbatorCreator extends AbstractMojo {
             writer.flush();
             writer.close();
             runScript(outputFile);
-            new File(outputFile).delete();
+//            new File(outputFile).delete();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -82,7 +116,8 @@ public class IbatorCreator extends AbstractMojo {
      */
     private void runScript(String outputFile) {
         String basePath = project.getBasedir().getAbsolutePath();
-        String ibatorJarPath = basePath + File.separator + "template" + File.separator + "ibator.jar";
+        String ibatorJarPath = "D:\\ProgramCodes\\IntellijWeb\\ibator-core\\target\\ibator-core-1.2.2.jar";
+//                basePath + File.separator + "template" + File.separator + "ibator.jar";
         Runtime rt = Runtime.getRuntime();
         String cmd = "java -cp "
                 + ibatorJarPath

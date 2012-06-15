@@ -25,6 +25,7 @@ public abstract class BaseCreator extends AbstractMojo {
 
     /**
      * 返回输入的Controller,Service,View名称
+     *
      * @parameter expression="${name}"
      */
     private String name;
@@ -34,16 +35,19 @@ public abstract class BaseCreator extends AbstractMojo {
      */
     protected MavenProject project;
 
+    private static String overWriteFlag = "y";
+
     @Override
     public void execute() throws MojoExecutionException {
 
         String rootPath = getRootPath();
         File path = new File(rootPath + this.getDir());
         while (name == null) {
-            System.out.println("Please enter " + this.getFileTypeName() + " name:");
+            System.out.println("Please enter " + (this.getFileTypeName().equals("") ? this.getFileType() : this.getFileTypeName()) + " name:");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             try {
                 name = br.readLine();
+                name = mergeNameForPage(name);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -61,6 +65,10 @@ public abstract class BaseCreator extends AbstractMojo {
         exportFile(fullPath, false);
     }
 
+    protected String mergeNameForPage(String name) {
+        return name;
+    }
+
     public void exportFile(String path, boolean flag) {
         try {
             Template t = initTemplate(this.getTemplateName());
@@ -76,10 +84,27 @@ public abstract class BaseCreator extends AbstractMojo {
 
             mergeContext(context);
 
-            PrintWriter writer = new PrintWriter(path, "UTF-8");
-            t.merge(context, writer);
-            writer.flush();
-            writer.close();
+            File file = new File(path);
+
+            if(file.exists() && (!overWriteFlag.equals("a")|| !overWriteFlag.equals("an"))){
+                System.out.println(name + this.getFileTypeName() + "." + this.getFileType() + " is existed!");
+                System.out.println("will you overwrite it?(y/n/a/an default n)");
+                BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+                try {
+                    overWriteFlag = br.readLine();
+                    if(overWriteFlag == null || overWriteFlag.trim().equals("")){
+                        overWriteFlag = "n";
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            if(overWriteFlag.equalsIgnoreCase("y")|| overWriteFlag.equalsIgnoreCase("a")){
+                PrintWriter writer = new PrintWriter(path, "UTF-8");
+                t.merge(context, writer);
+                writer.flush();
+                writer.close();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -88,9 +113,10 @@ public abstract class BaseCreator extends AbstractMojo {
 
     /**
      * 供子类实现，添加更多的变量
+     *
      * @param context
      */
-    protected void mergeContext(VelocityContext context){
+    protected void mergeContext(VelocityContext context) {
     }
 
     private String getPackage(String path) {
@@ -130,6 +156,7 @@ public abstract class BaseCreator extends AbstractMojo {
     /**
      * 子类返回其从pom.xml文件中取得的路径
      * 例如：service.dir,controller.dir
+     *
      * @return
      */
     public abstract String getDir();
@@ -137,6 +164,7 @@ public abstract class BaseCreator extends AbstractMojo {
     /**
      * 返回文件后缀名
      * 例如:Controller,Service,Domain
+     *
      * @return
      */
     public abstract String getFileTypeName();
@@ -144,12 +172,14 @@ public abstract class BaseCreator extends AbstractMojo {
     /**
      * 返回文件类型
      * 例如：java,html,js
+     *
      * @return
      */
     public abstract String getFileType();
 
     /**
      * 返回模板的名称
+     *
      * @return
      */
     public abstract String getTemplateName();

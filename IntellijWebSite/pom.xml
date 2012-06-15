@@ -14,6 +14,11 @@
         <service.dir>/com/site/web/service</service.dir>
         <domain.dir>/com/site/domain</domain.dir>
         <view.dir>/view</view.dir>
+        <ibatis.java.dir>/IntellijIbatis/src/main/java</ibatis.java.dir>
+        <ibatis.model.package>com.model</ibatis.model.package>
+        <ibatis.dao.package>com.dao</ibatis.dao.package>
+        <ibatis.resources.dir>/IntellijIbatis/src/main/resources</ibatis.resources.dir>
+        <ibatis.resources.package>conf.ibatis</ibatis.resources.package>
     </properties>
 
     <dependencies>
@@ -118,13 +123,6 @@
                 <groupId>IntellijCreator</groupId>
                 <artifactId>IntellijCreator</artifactId>
                 <version>1.0</version>
-                <dependencies>
-                    <dependency>
-                        <groupId>IntellijIbatis</groupId>
-                        <artifactId>IntellijIbatis</artifactId>
-                        <version>1.0</version>
-                    </dependency>
-                </dependencies>
             </plugin>
         </plugins>
     </build>
