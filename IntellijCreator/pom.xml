@@ -25,5 +25,10 @@
             <artifactId>maven-core</artifactId>
             <version>3.0.4</version>
         </dependency>
+        <dependency>
+            <groupId>ibator</groupId>
+            <artifactId>ibator-core</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
 </project>

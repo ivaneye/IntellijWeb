@@ -58,6 +58,38 @@ public class IbatorCreator extends AbstractMojo {
      */
     private String resourcesPackage;
 
+    public void setName(String name) {
+        if(name.contains(".")){
+            String[] t = name.split("\\.");
+            name = t[t.length - 1];
+        }
+        this.name = name;
+    }
+
+    public void setProject(MavenProject project) {
+        this.project = project;
+    }
+
+    public void setJavaDir(String javaDir) {
+        this.javaDir = javaDir;
+    }
+
+    public void setModelPackage(String modelPackage) {
+        this.modelPackage = modelPackage;
+    }
+
+    public void setDaoPackage(String daoPackage) {
+        this.daoPackage = daoPackage;
+    }
+
+    public void setResourcesDir(String resourcesDir) {
+        this.resourcesDir = resourcesDir;
+    }
+
+    public void setResourcesPackage(String resourcesPackage) {
+        this.resourcesPackage = resourcesPackage;
+    }
+
     @Override
     public void execute() throws MojoExecutionException {
 

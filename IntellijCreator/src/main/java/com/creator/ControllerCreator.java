@@ -18,6 +18,10 @@ public class ControllerCreator extends BaseCreator {
         return dir;
     }
 
+    public void setDir(String dir) {
+        this.dir = dir;
+    }
+
     @Override
     public String getFileTypeName() {
         return "Controller";

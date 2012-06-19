@@ -37,11 +37,16 @@ public abstract class BaseCreator extends AbstractMojo {
 
     private static String overWriteFlag = "y";
 
+    private boolean flag = false;
+
     @Override
     public void execute() throws MojoExecutionException {
 
         String rootPath = getRootPath();
         File path = new File(rootPath + this.getDir());
+        if(name != null){
+            name = mergeNameForPage(name);
+        }
         while (name == null) {
             System.out.println("Please enter " + (this.getFileTypeName().equals("") ? this.getFileType() : this.getFileTypeName()) + " name:");
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -62,7 +67,7 @@ public abstract class BaseCreator extends AbstractMojo {
             name = dirs[dirs.length - 1];
         }
         String fullPath = path + File.separator + name + this.getFileTypeName() + "." + this.getFileType();
-        exportFile(fullPath, false);
+        exportFile(fullPath, flag);
     }
 
     protected String mergeNameForPage(String name) {
@@ -183,4 +188,16 @@ public abstract class BaseCreator extends AbstractMojo {
      * @return
      */
     public abstract String getTemplateName();
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setProject(MavenProject project) {
+        this.project = project;
+    }
+
+    public void setFlag(boolean flag) {
+        this.flag = flag;
+    }
 }
